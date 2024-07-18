@@ -1,24 +1,19 @@
-export type dataType = {
-  id: number;
+export interface dataType {
+  id?: number;
   question: string;
   options: string[];
   correctAns: { id: number; value: string };
-};
+}
+export interface wrongAnsDataType extends dataType {
+  wrongAns: string;
+}
 export const data: dataType[] = [
   {
-    id: 1,
     question: "Which planet is known as the Red Planet?",
     options: ["Earth", "Mars", "Jupiter", "Saturn"],
     correctAns: { id: 1, value: "Mars" },
   },
   {
-    id: 2,
-    question: "What is the tallest animal in the world?",
-    options: ["Elephant", "Giraffe", "Lion", "Horse"],
-    correctAns: { id: 1, value: "Giraffe" },
-  },
-  {
-    id: 3,
     question: "Who wrote the play 'Romeo and Juliet'?",
     options: [
       "William Shakespeare",
@@ -29,7 +24,6 @@ export const data: dataType[] = [
     correctAns: { id: 0, value: "William Shakespeare" },
   },
   {
-    id: 4,
     question: "What is the largest ocean on Earth?",
     options: [
       "Atlantic Ocean",
@@ -40,19 +34,6 @@ export const data: dataType[] = [
     correctAns: { id: 3, value: "Pacific Ocean" },
   },
   {
-    id: 5,
-    question: "Which country is known for the Eiffel Tower?",
-    options: ["Italy", "Germany", "France", "Spain"],
-    correctAns: { id: 2, value: "France" },
-  },
-  {
-    id: 6,
-    question: "What is the main ingredient in guacamole?",
-    options: ["Tomato", "Onion", "Avocado", "Lime"],
-    correctAns: { id: 2, value: "Avocado" },
-  },
-  {
-    id: 7,
     question: "What is the freezing point of water?",
     options: [
       "0 degrees Celsius",
@@ -63,21 +44,15 @@ export const data: dataType[] = [
     correctAns: { id: 2, value: "Both A and B" },
   },
   {
-    id: 8,
-    question: "Which language is primarily spoken in Brazil?",
-    options: ["Spanish", "Portuguese", "French", "English"],
-    correctAns: { id: 1, value: "Portuguese" },
-  },
-  {
-    id: 9,
-    question: "What is the largest mammal in the world?",
-    options: ["Elephant", "Blue Whale", "Giraffe", "Hippopotamus"],
-    correctAns: { id: 1, value: "Blue Whale" },
-  },
-  {
-    id: 10,
     question: "Which element is said to keep bones strong?",
     options: ["Iron", "Calcium", "Magnesium", "Potassium"],
     correctAns: { id: 1, value: "Calcium" },
   },
 ];
+export const shuffleArray = (arr: dataType[]) => {
+  for (let i = arr.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr.map((item, index) => ({ ...item, id: index + 1 }));
+};
